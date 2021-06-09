@@ -1,0 +1,13 @@
+server:
+  error:
+    include-stacktrace: on_param
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/anime?useSSL=false&createDatabaseIfNotExists=true
+    username: pguser
+    password: pgpassword
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
