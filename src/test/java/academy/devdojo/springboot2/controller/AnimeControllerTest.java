@@ -169,7 +169,6 @@ class AnimeControllerTest {
     @DisplayName("Delete removes anime when successful")
     void Delete_RemovesAnime_WhenSuccessful(){
 
-
         Assertions.assertThatCode(() -> animeController.delete(1).getBody())
                 .doesNotThrowAnyException();
 
