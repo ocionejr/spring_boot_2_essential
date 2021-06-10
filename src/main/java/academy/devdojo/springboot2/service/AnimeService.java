@@ -7,6 +7,8 @@ import academy.devdojo.springboot2.repository.AnimeRepository;
 import academy.devdojo.springboot2.request.AnimePostRequestBody;
 import academy.devdojo.springboot2.request.AnimePutRequestBody;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -22,7 +24,11 @@ public class AnimeService{
 
     private final AnimeRepository animeRepository;
 
-    public List<Anime> listAll(){
+    public Page<Anime> listAll(Pageable pageable){
+        return animeRepository.findAll(pageable);
+    }
+
+    public List<Anime> listAllNonPageable() {
         return animeRepository.findAll();
     }
 
