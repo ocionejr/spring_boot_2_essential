@@ -1,4 +1,9 @@
-version: '3'
+version: '2.4'
+x-database-variables: &database-variables
+  SPRING-DATASOURCE_URL: jdbc:postgresql://pgsql:5432/anime?useSSL=false&createDatabaseIfNotExists=true
+  SPRING_DATASOURCE_USERNAME: pguser
+  SPRING_DATASOURCE_PASSWORD: pgpassword
+
 services:
   pgsql:
     image: postgres:alpine
@@ -12,5 +17,33 @@ services:
       POSTGRES_USER: pguser
       POSTGRES_PASSWORD: pgpassword
       POSTGRES_DB: anime
+    mem_limit:  512m
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+    - "./src/main/resources/prometheus.yml:/etc/prometheus/prometheus.yml"
+    command: "--config.file=/etc/prometheus/prometheus.yml"
+    ports:
+      - '9090:9090'
+    mem_limit:  128m
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    mem_limit:  128m
+
+  springboot2-essentials:
+    image: registry.hub.docker.com/ocionejr/springboot2-essentials:1.0-SNAPSHOT
+    ports:
+      - "8080:8080"
+    environment:
+       <<: *database-variables
+    mem_limit: 512m
+
 volumes:
   pg-data:
+

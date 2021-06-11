@@ -15,6 +15,11 @@
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <lombok.version>1.18.16</lombok.version>
         <springdoc-openapi-ui.version>1.5.9</springdoc-openapi-ui.version>
+        <jib-maven-plugin.version>3.1.1</jib-maven-plugin.version>
+        <docker.distroless.image>gcr.io/distroless/java:11</docker.distroless.image>
+        <docker.repo.url>registry.hub.docker.com/ocionejr</docker.repo.url>
+        <docker.repo.project>springboot2-essentials</docker.repo.project>
+        <docker.image.name>${docker.repo.url}/${docker.repo.project}</docker.image.name>
     </properties>
 
     <parent>
@@ -24,6 +29,16 @@
     </parent>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
@@ -131,6 +146,25 @@
     </profiles>
     <build>
         <plugins>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>${jib-maven-plugin.version}</version>
+                <configuration>
+                    <from>
+                        <image>${docker.distroless.image}</image>
+                    </from>
+                    <to>
+                        <image>${docker.image.name}</image>
+                        <tags>
+                            <tag>${project.version}</tag>
+                        </tags>
+                    </to>
+                    <container>
+                        <mainClass>academy.devdojo.springboot2.ApplicationStart</mainClass>
+                    </container>
+                </configuration>
+            </plugin>
 
             <plugin>
                 <groupId>org.springframework.boot</groupId>

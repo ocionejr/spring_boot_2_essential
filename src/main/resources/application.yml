@@ -3,6 +3,8 @@ server:
     include-stacktrace: on_param
 
 spring:
+  application:
+    name: springboot2-essentials
   datasource:
     url: jdbc:postgresql://localhost:5432/anime?useSSL=false&createDatabaseIfNotExists=true
     username: pguser
@@ -16,3 +18,14 @@ logging:
     org:
       hibernate:
         SQL: DEBUG
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, health, metrics, prometheus
+
+info:
+  app: Spring Boot Essentials By DevDojo
+  github: https://github.com/ocionejr/spring_boot_2_essential
