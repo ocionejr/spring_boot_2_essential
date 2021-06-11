@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: academy.devdojo.springboot2.controller.AnimeControllerTest
+-------------------------------------------------------------------------------
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.536 s - in academy.devdojo.springboot2.controller.AnimeControllerTest
